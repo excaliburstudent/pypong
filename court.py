@@ -11,6 +11,7 @@ class Court:
         self.surface = pygame.Surface((width, height))
         self.x = left
         self.y = top
+        self.game_objects = []
 
     def get_paddle_x(self, which):
         if which == Court.LEFT_PADDLE:
@@ -22,8 +23,12 @@ class Court:
     def get_paddle_y(self):
         return self.surface.get_rect().centery
 
+    def add_object(self, object):
+        self.game_objects.append(object)
+
     def update(self):
-        pass
+        for object in self.game_objects:
+            object.update(self.surface.get_size())
 
     def draw(self, surface):
         self.surface.fill(colors.BLACK)
@@ -34,6 +39,9 @@ class Court:
 
         self.draw_net()
 
+        for object in self.game_objects:
+            object.draw(self.surface)
+            
         surface.blit(self.surface, (self.x, self.y))
 
     def draw_net(self):
