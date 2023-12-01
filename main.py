@@ -1,5 +1,6 @@
 import pygame
 from court import *
+from paddle import *
 
 BLACK = (0, 0, 0)
 
@@ -14,6 +15,8 @@ pygame.init()
 size = (WIDTH, HEIGHT)
 screen = pygame.display.set_mode(size)
 court = Court(0, SCOREBOARD_HEIGHT, WIDTH, HEIGHT - SCOREBOARD_HEIGHT - BOTTOM_PANEL_HEIGHT)
+paddle1 = Paddle(court, Court.LEFT_PADDLE)
+paddle2 = Paddle(court, Court.RIGHT_PADDLE)
 
 clock = pygame.time.Clock()
 

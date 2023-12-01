@@ -3,10 +3,24 @@ import colors
 
 class Court:
 
+    LEFT_PADDLE = -1
+    RIGHT_PADDLE = 1
+    PADDLE_MARGIN = 20
+
     def __init__(self, left, top, width, height):
         self.surface = pygame.Surface((width, height))
         self.x = left
         self.y = top
+
+    def get_paddle_x(self, which):
+        if which == Court.LEFT_PADDLE:
+            paddle_x = Court.PADDLE_MARGIN
+        else:
+            paddle_x = self.surface.get_width() - Court.PADDLE_MARGIN
+        return paddle_x
+
+    def get_paddle_y(self):
+        return self.surface.get_rect().centery
 
     def update(self):
         pass
