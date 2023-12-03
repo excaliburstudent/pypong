@@ -15,8 +15,8 @@ pygame.init()
 size = (WIDTH, HEIGHT)
 screen = pygame.display.set_mode(size)
 court = Court(0, SCOREBOARD_HEIGHT, WIDTH, HEIGHT - SCOREBOARD_HEIGHT - BOTTOM_PANEL_HEIGHT)
-paddle1 = Paddle(court, Court.LEFT_PADDLE)
-paddle2 = Paddle(court, Court.RIGHT_PADDLE)
+left_paddle = Paddle(court, Court.LEFT_PADDLE)
+right_paddle = Paddle(court, Court.RIGHT_PADDLE)
 
 clock = pygame.time.Clock()
 
@@ -30,6 +30,10 @@ while not done:
     if not done:
         screen.fill(BLACK)
 
+        keys = pygame.key.get_pressed()
+        left_paddle.move(keys[pygame.K_w], keys[pygame.K_s])
+        right_paddle.move(keys[pygame.K_UP], keys[pygame.K_DOWN])
+        
         court.update()
 
         court.draw(screen)
