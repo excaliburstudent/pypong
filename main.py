@@ -1,6 +1,7 @@
 import pygame
 from court import *
 from paddle import *
+from ball import *
 
 BLACK = (0, 0, 0)
 
@@ -17,6 +18,7 @@ screen = pygame.display.set_mode(size)
 court = Court(0, SCOREBOARD_HEIGHT, WIDTH, HEIGHT - SCOREBOARD_HEIGHT - BOTTOM_PANEL_HEIGHT)
 left_paddle = Paddle(court, Court.LEFT_PADDLE)
 right_paddle = Paddle(court, Court.RIGHT_PADDLE)
+ball = Ball(court)
 
 clock = pygame.time.Clock()
 
@@ -33,7 +35,7 @@ while not done:
         keys = pygame.key.get_pressed()
         left_paddle.move(keys[pygame.K_w], keys[pygame.K_s])
         right_paddle.move(keys[pygame.K_UP], keys[pygame.K_DOWN])
-        
+
         court.update()
 
         court.draw(screen)

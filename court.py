@@ -23,6 +23,13 @@ class Court:
     def get_paddle_y(self):
         return self.surface.get_rect().centery
 
+    def get_center(self):
+        return self.surface.get_rect().center
+    
+    def set_ball(self, ball):
+        self.ball = ball
+        self.add_object(ball)
+        
     def add_object(self, object):
         self.game_objects.append(object)
 
@@ -41,7 +48,7 @@ class Court:
 
         for object in self.game_objects:
             object.draw(self.surface)
-            
+
         surface.blit(self.surface, (self.x, self.y))
 
     def draw_net(self):
