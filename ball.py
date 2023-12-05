@@ -7,6 +7,7 @@ class Ball:
 
     HORIZONTAL = -1
     VERTICAL = 1
+    BOUNCE_VARIANCE = 0.2
     SIZE = 5
     INITIAL_SPEED = 5
     MAX_ANGLE = 60
@@ -41,8 +42,10 @@ class Ball:
     def bounce(self, direction):
         if direction == Ball.HORIZONTAL:
             self.delta_x = -self.delta_x
+            self.delta_y += random.random() * Ball.BOUNCE_VARIANCE * random.choice([1, -1])
         elif direction == Ball.VERTICAL:
             self.delta_y = -self.delta_y
+            self.delta_x += random.random() * Ball.BOUNCE_VARIANCE * random.choice([1, -1])
 
     def get_new_x(self):
         return self.position[0] + self.speed * self.delta_x
