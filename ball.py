@@ -5,6 +5,8 @@ import colors
 
 class Ball:
 
+    HORIZONTAL = -1
+    VERTICAL = 1
     SIZE = 5
     INITIAL_SPEED = 5
     MAX_ANGLE = 60
@@ -25,8 +27,22 @@ class Ball:
 
     def update(self, bounds):
         new_x = self.get_new_x()
+        if new_x < 0 or new_x > bounds[0]:
+            self.bounce(Ball.HORIZONTAL)
+            new_x = self.get_new_x()
+
         new_y = self.get_new_y()
+        if new_y - self.size < 0 or new_y + self.size > bounds[1]:
+            self.bounce(Ball.VERTICAL)
+            new_y = self.get_new_y()
+
         self.position = (new_x, new_y)
+
+    def bounce(self, direction):
+        if direction == Ball.HORIZONTAL:
+            self.delta_x = -self.delta_x
+        elif direction == Ball.VERTICAL:
+            self.delta_y = -self.delta_y
 
     def get_new_x(self):
         return self.position[0] + self.speed * self.delta_x
