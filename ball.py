@@ -2,6 +2,7 @@ import pygame
 import random
 import math
 import colors
+from scorekeeper import *
 
 class Ball:
 
@@ -13,8 +14,9 @@ class Ball:
     MAX_ANGLE = 60
     MIN_ANGLE = -MAX_ANGLE
 
-    def __init__(self, court):
+    def __init__(self, court, scoreKeeper):
         self.size = Ball.SIZE
+        self.scoreKeeper = scoreKeeper
         self.initial_position = court.get_center()
         court.set_ball(self)
         self.initialize_ball()
@@ -28,10 +30,18 @@ class Ball:
 
     def update(self, bounds):
         new_x = self.get_new_x()
-        if new_x < 0 or new_x > bounds[0]:
-            self.bounce(Ball.HORIZONTAL)
-            new_x = self.get_new_x()
+        if new_x < 0:
+            print("Point for right player")
+            self.scoreKeeper.award_point(ScoreKeeper.RIGHT_PLAYER)
+            self.initialize_ball()
+            return
 
+        if new_x > bounds[0]:
+            print("Point for left player")
+            self.scoreKeeper.award_point(ScoreKeeper.LEFT_PLAYER)
+            self.initialize_ball()
+            return
+        
         new_y = self.get_new_y()
         if new_y - self.size < 0 or new_y + self.size > bounds[1]:
             self.bounce(Ball.VERTICAL)
@@ -55,7 +65,7 @@ class Ball:
             if object != self and ball_rect.colliderect(object.get_rect()):
                 self.bounce(Ball.HORIZONTAL)
                 break
-            
+
     def get_new_x(self):
         return self.position[0] + self.speed * self.delta_x
     

@@ -2,6 +2,7 @@ import pygame
 from court import *
 from paddle import *
 from ball import *
+from scorekeeper import *
 
 BLACK = (0, 0, 0)
 
@@ -15,10 +16,11 @@ pygame.init()
 
 size = (WIDTH, HEIGHT)
 screen = pygame.display.set_mode(size)
+scoreKeeper = ScoreKeeper()
 court = Court(0, SCOREBOARD_HEIGHT, WIDTH, HEIGHT - SCOREBOARD_HEIGHT - BOTTOM_PANEL_HEIGHT)
 left_paddle = Paddle(court, Court.LEFT_PADDLE)
 right_paddle = Paddle(court, Court.RIGHT_PADDLE)
-ball = Ball(court)
+ball = Ball(court, scoreKeeper)
 
 clock = pygame.time.Clock()
 
