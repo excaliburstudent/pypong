@@ -29,13 +29,15 @@ class Court:
     def set_ball(self, ball):
         self.ball = ball
         self.add_object(ball)
-        
+
     def add_object(self, object):
         self.game_objects.append(object)
 
     def update(self):
         for object in self.game_objects:
             object.update(self.surface.get_size())
+
+        self.ball.check_for_contact(self.game_objects)
 
     def draw(self, surface):
         self.surface.fill(colors.BLACK)

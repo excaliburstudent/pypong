@@ -47,6 +47,15 @@ class Ball:
             self.delta_y = -self.delta_y
             self.delta_x += random.random() * Ball.BOUNCE_VARIANCE * random.choice([1, -1])
 
+    def check_for_contact(self, objects):
+        center_x, center_y = self.position
+        diameter = 2 * self.size
+        ball_rect = pygame.Rect(center_x - self.size, center_y - self.size, diameter, diameter)
+        for object in objects:
+            if object != self and ball_rect.colliderect(object.get_rect()):
+                self.bounce(Ball.HORIZONTAL)
+                break
+            
     def get_new_x(self):
         return self.position[0] + self.speed * self.delta_x
     

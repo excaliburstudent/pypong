@@ -27,6 +27,9 @@ class Paddle:
         else:
             self.move_direction = Paddle.NOT_MOVING
 
+    def get_rect(self):
+        return pygame.Rect(self.x, self.y, Paddle.WIDTH, Paddle.HEIGHT)
+    
     def update(self, bounds):
         self.y += self.move_direction * Paddle.MOVE_AMOUNT
         if self.y < 0:
@@ -35,4 +38,4 @@ class Paddle:
             self.y = bounds[1] - Paddle.HEIGHT
 
     def draw(self, surface):
-        pygame.draw.rect(surface, colors.WHITE, pygame.Rect(self.x, self.y, Paddle.WIDTH, Paddle.HEIGHT))
+        pygame.draw.rect(surface, colors.WHITE, self.get_rect())
