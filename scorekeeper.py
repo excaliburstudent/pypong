@@ -1,4 +1,4 @@
-class ScoreKeeper:
+class Scorekeeper:
 
     LEFT_PLAYER = 0
     RIGHT_PLAYER = 1

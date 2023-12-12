@@ -14,9 +14,9 @@ class Ball:
     MAX_ANGLE = 60
     MIN_ANGLE = -MAX_ANGLE
 
-    def __init__(self, court, scoreKeeper):
+    def __init__(self, court, scorekeeper):
         self.size = Ball.SIZE
-        self.scoreKeeper = scoreKeeper
+        self.scorekeeper = scorekeeper
         self.initial_position = court.get_center()
         court.set_ball(self)
         self.initialize_ball()
@@ -32,13 +32,13 @@ class Ball:
         new_x = self.get_new_x()
         if new_x < 0:
             print("Point for right player")
-            self.scoreKeeper.award_point(ScoreKeeper.RIGHT_PLAYER)
+            self.scorekeeper.award_point(Scorekeeper.RIGHT_PLAYER)
             self.initialize_ball()
             return
 
         if new_x > bounds[0]:
             print("Point for left player")
-            self.scoreKeeper.award_point(ScoreKeeper.LEFT_PLAYER)
+            self.scorekeeper.award_point(Scorekeeper.LEFT_PLAYER)
             self.initialize_ball()
             return
         
