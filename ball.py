@@ -11,6 +11,7 @@ class Ball:
     BOUNCE_VARIANCE = 0.2
     SIZE = 5
     INITIAL_SPEED = 5
+    RALLY_THRESHOLD = 10
     MAX_ANGLE = 60
     MIN_ANGLE = -MAX_ANGLE
 
@@ -28,6 +29,7 @@ class Ball:
         self.delta_x = math.cos(angle)
         self.delta_y = math.sin(angle)
         self.speed = Ball.INITIAL_SPEED
+        self.rally_count = 0
 
     def update(self, bounds):
         new_x = self.get_new_x()
@@ -66,6 +68,9 @@ class Ball:
         for object in objects:
             if object != self and ball_rect.colliderect(object.get_rect()):
                 self.bounce(Ball.HORIZONTAL)
+                self.rally_count += 1
+                if self.rally_count % Ball.RALLY_THRESHOLD == 0:
+                    self.speed += Ball.RALLY_THRESHOLD / self.rally_count
                 break
 
     def get_new_x(self):
