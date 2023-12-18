@@ -9,3 +9,6 @@ class Scorekeeper:
     def award_point(self, which_player):
         self.scores[which_player] += 1
         print("Score:", self.scores)
+
+    def get_score(self, which_player):
+        return self.scores[which_player]

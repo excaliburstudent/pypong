@@ -41,6 +41,13 @@ class Scoreboard:
     def draw(self, surface):
         self.surface.fill(colors.BLACK)
 
+        left_score = self.scorekeeper.get_score(Scorekeeper.LEFT_PLAYER)
+        right_score = self.scorekeeper.get_score(Scorekeeper.RIGHT_PLAYER)
+
+        self.surface.blit(self.digits[left_score], (self.x + Scoreboard.SIDE_MARGIN, self.y + Scoreboard.TOP_MARGIN))
+        self.surface.blit(self.digits[right_score], (self.surface.get_width() - Scoreboard.SIDE_MARGIN - Scoreboard.NUMBER_WIDTH,
+                                                     self.y + Scoreboard.TOP_MARGIN))
+        
         surface.blit(self.surface, (self.x, self.y))
 
     def initialize_zero(self, surface):
