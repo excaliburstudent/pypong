@@ -7,6 +7,7 @@ from ball import *
 from scorekeeper import *
 from scoreboard import *
 from message_board import *
+from state_manager import *
 
 WIDTH = 800
 HEIGHT = 600
@@ -21,7 +22,8 @@ size = (WIDTH, HEIGHT)
 screen = pygame.display.set_mode(size)
 
 message_board = MessageBoard(0, HEIGHT - BOTTOM_PANEL_HEIGHT, WIDTH, BOTTOM_PANEL_HEIGHT)
-scorekeeper = Scorekeeper()
+state_manager = StateManager(message_board)
+scorekeeper = Scorekeeper(state_manager)
 scoreboard = Scoreboard(scorekeeper, 0, 0, WIDTH, SCOREBOARD_HEIGHT)
 court = Court(0, SCOREBOARD_HEIGHT, WIDTH, HEIGHT - SCOREBOARD_HEIGHT - BOTTOM_PANEL_HEIGHT)
 left_paddle = Paddle(court, Court.LEFT_PADDLE)
@@ -48,12 +50,15 @@ while not done:
         screen.fill(colors.BLACK)
 
         keys = pygame.key.get_pressed()
-        left_paddle.move(keys[pygame.K_w], keys[pygame.K_s])
-        right_paddle.move(keys[pygame.K_UP], keys[pygame.K_DOWN])
+        if state_manager.get_state() == StateManager.PLAYING_STATE:
+            left_paddle.move(keys[pygame.K_w], keys[pygame.K_s])
+            right_paddle.move(keys[pygame.K_UP], keys[pygame.K_DOWN])
 
+        state_manager.update()
         message_board.update()
         scoreboard.update()
-        court.update()
+        if state_manager.get_state() == StateManager.PLAYING_STATE:
+            court.update()
 
         message_board.draw(screen)
         scoreboard.draw(screen)

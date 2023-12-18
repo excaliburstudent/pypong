@@ -8,7 +8,13 @@ class MessageBoard:
         self.x = left
         self.y = top
         self.font = pygame.font.SysFont(None, 24)
-        self.message = "I am the message board"
+        self.clear_message()
+
+    def set_message(self, message):
+        self.message = message
+
+    def clear_message(self):
+        self.message = ""
 
     def update(self):
         pass
