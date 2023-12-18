@@ -18,6 +18,7 @@ class Ball:
         self.size = Ball.SIZE
         self.scorekeeper = scorekeeper
         self.initial_position = court.get_center()
+        self.bounce_sound = pygame.mixer.Sound("assets/sounds/4359__noisecollector__pongblipf4.wav")
         court.set_ball(self)
         self.initialize_ball()
 
@@ -50,6 +51,7 @@ class Ball:
         self.position = (new_x, new_y)
 
     def bounce(self, direction):
+        self.bounce_sound.play()
         if direction == Ball.HORIZONTAL:
             self.delta_x = -self.delta_x
             self.delta_y += random.random() * Ball.BOUNCE_VARIANCE * random.choice([1, -1])

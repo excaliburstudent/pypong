@@ -1,4 +1,5 @@
 import pygame
+import time
 from court import *
 from paddle import *
 from ball import *
@@ -12,6 +13,7 @@ HEIGHT = 600
 SCOREBOARD_HEIGHT = 100
 BOTTOM_PANEL_HEIGHT = 50
 FRAME_RATE = 30
+WINNING_SCORE = 9
 
 pygame.init()
 
@@ -32,6 +34,13 @@ while not done:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
+
+    left_score = scorekeeper.get_score(Scorekeeper.LEFT_PLAYER)
+    right_score = scorekeeper.get_score(Scorekeeper.RIGHT_PLAYER)
+    if left_score == WINNING_SCORE or right_score == WINNING_SCORE:
+        pygame.mixer.Sound("assets/sounds/mixkit-arcade-retro-game-over-213.wav").play()
+        time.sleep(2)
+        done = True
 
     if not done:
         screen.fill(BLACK)
