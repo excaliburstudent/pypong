@@ -66,12 +66,14 @@ class Ball:
         diameter = 2 * self.size
         ball_rect = pygame.Rect(center_x - self.size, center_y - self.size, diameter, diameter)
         for object in objects:
-            if object != self and ball_rect.colliderect(object.get_rect()):
-                self.bounce(Ball.HORIZONTAL)
-                self.rally_count += 1
-                if self.rally_count % Ball.RALLY_THRESHOLD == 0:
-                    self.speed += Ball.RALLY_THRESHOLD / self.rally_count
-                break
+            if object != self:
+                bounce_direction = object.is_touching(ball_rect, Ball.HORIZONTAL, Ball.VERTICAL)
+                if bounce_direction is not None:
+                    self.bounce(bounce_direction)
+                    self.rally_count += 1
+                    if self.rally_count % Ball.RALLY_THRESHOLD == 0:
+                        self.speed += Ball.RALLY_THRESHOLD / self.rally_count
+                    break
 
     def get_new_x(self):
         return self.position[0] + self.speed * self.delta_x

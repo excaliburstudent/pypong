@@ -33,6 +33,19 @@ class Paddle:
     def get_rect(self):
         return pygame.Rect(self.x, self.y, Paddle.WIDTH, Paddle.HEIGHT)
     
+    def is_touching(self, rect, h_direction, v_direction):
+        top_edge = (self.x, self.y, self.x + Paddle.WIDTH, self.y)
+        bottom_edge = (self.x, self.y + Paddle.HEIGHT, self.x + Paddle.WIDTH, self.y + Paddle.HEIGHT)
+        if rect.clipline(top_edge) or rect.clipline(bottom_edge):
+            return v_direction
+        
+        left_face = (self.x, self.y, self.x, self.y + Paddle.HEIGHT)
+        right_face = (self.x + Paddle.WIDTH, self.y, self.x + Paddle.WIDTH, self.y + Paddle.HEIGHT)
+        if rect.clipline(left_face) or rect.clipline(right_face):
+            return h_direction
+        
+        return None
+    
     def update(self, bounds):
         self.y += self.move_direction * Paddle.MOVE_AMOUNT
         if self.y < 0:
