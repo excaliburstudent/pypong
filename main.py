@@ -1,5 +1,4 @@
 import pygame
-import time
 import colors
 from court import *
 from paddle import *
@@ -20,6 +19,7 @@ pygame.init()
 
 size = (WIDTH, HEIGHT)
 screen = pygame.display.set_mode(size)
+pygame.display.set_caption("Pong")
 
 message_board = MessageBoard(0, HEIGHT - BOTTOM_PANEL_HEIGHT, WIDTH, BOTTOM_PANEL_HEIGHT)
 state_manager = StateManager(message_board)
@@ -42,9 +42,7 @@ while not done:
     left_score = scorekeeper.get_score(Scorekeeper.LEFT_PLAYER)
     right_score = scorekeeper.get_score(Scorekeeper.RIGHT_PLAYER)
     if left_score == WINNING_SCORE or right_score == WINNING_SCORE:
-        pygame.mixer.Sound("assets/sounds/mixkit-arcade-retro-game-over-213.wav").play()
-        time.sleep(2)
-        done = True
+        state_manager.set_state(StateManager.GAME_OVER_STATE)
 
     if not done:
         screen.fill(colors.BLACK)
@@ -53,6 +51,12 @@ while not done:
         if state_manager.get_state() == StateManager.PLAYING_STATE:
             left_paddle.move(keys[pygame.K_w], keys[pygame.K_s])
             right_paddle.move(keys[pygame.K_UP], keys[pygame.K_DOWN])
+        elif state_manager.get_state() == StateManager.GAME_OVER_STATE:
+            if keys[pygame.K_SPACE]:
+                scorekeeper.reset()
+                left_paddle.reset()
+                right_paddle.reset()
+                state_manager.set_state(StateManager.GET_READY_STATE)
 
         state_manager.update()
         message_board.update()

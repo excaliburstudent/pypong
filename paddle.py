@@ -12,10 +12,13 @@ class Paddle:
     MOVE_AMOUNT = 3
 
     def __init__(self, court, which):
-        self.x = court.get_paddle_x(which) - Paddle.WIDTH // 2
-        self.y = court.get_paddle_y() - Paddle.HEIGHT // 2
-        self.move_direction = Paddle.NOT_MOVING
+        self.initial_position = (court.get_paddle_x(which) - Paddle.WIDTH // 2, court.get_paddle_y() - Paddle.HEIGHT // 2)
+        self.reset()
         court.add_object(self)
+
+    def reset(self):
+        self.x, self.y = self.initial_position
+        self.move_direction = Paddle.NOT_MOVING
 
     def move(self, up, down):
         if up and down:
