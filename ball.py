@@ -82,4 +82,4 @@ class Ball:
         return self.position[1] + self.speed * self.delta_y
 
     def draw(self, surface):
-        pygame.draw.circle(surface, colors.WHITE, self.position, self.size)
+        pygame.draw.circle(surface, colors.YELLOW, self.position, self.size)

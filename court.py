@@ -40,7 +40,7 @@ class Court:
         self.ball.check_for_contact(self.game_objects)
 
     def draw(self, surface):
-        self.surface.fill(colors.BLACK)
+        self.surface.fill(colors.GREEN)
         right = self.surface.get_width() - 1
         bottom = self.surface.get_height() - 1
         pygame.draw.line(self.surface, colors.WHITE, (0, 0), (right, 0))

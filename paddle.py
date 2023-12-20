@@ -11,8 +11,9 @@ class Paddle:
     NOT_MOVING = 0
     MOVE_AMOUNT = 3
 
-    def __init__(self, court, which):
+    def __init__(self, court, which, color):
         self.initial_position = (court.get_paddle_x(which) - Paddle.WIDTH // 2, court.get_paddle_y() - Paddle.HEIGHT // 2)
+        self.color = color
         self.reset()
         court.add_object(self)
 
@@ -54,4 +55,4 @@ class Paddle:
             self.y = bounds[1] - Paddle.HEIGHT
 
     def draw(self, surface):
-        pygame.draw.rect(surface, colors.WHITE, self.get_rect())
+        pygame.draw.rect(surface, self.color, self.get_rect())
